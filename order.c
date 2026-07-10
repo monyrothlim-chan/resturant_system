@@ -35,7 +35,8 @@ void assignTableNumber(int *table_number) {
 // Adds items to the cart (order_items / order_qty arrays).
 // order_count is a pointer because this function needs to change
 // the actual counter that main() keeps track of.
-void takeOrder(int order_items[], int order_qty[], int *order_count) {
+// Returns ORDER_SUCCESS if order is valid, ORDER_INVALID if invalid input was entered
+int takeOrder(int order_items[], int order_qty[], int *order_count) {
     char add_more;
     int choice, qty;
 
@@ -53,7 +54,7 @@ void takeOrder(int order_items[], int order_qty[], int *order_count) {
         // simple check so the program doesn't crash on a bad number
         if (choice < 1 || choice > MENU_SIZE) {
             printf("Invalid item number, please try again.\n");
-            continue;
+            return ORDER_INVALID;  // Return invalid to restart order
         }
 
         printf("Enter Quantity: ");
@@ -68,6 +69,8 @@ void takeOrder(int order_items[], int order_qty[], int *order_count) {
         scanf(" %c", &add_more);
 
     } while (add_more == 'y' || add_more == 'Y');
+    
+    return ORDER_SUCCESS;  // Order completed successfully
 }
 
 

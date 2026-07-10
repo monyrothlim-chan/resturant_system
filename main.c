@@ -13,7 +13,13 @@ int main() {
     printf("=== RESTAURANT ORDER SYSTEM ===\n");
 
     assignTableNumber(&table_number);
-    takeOrder(order_items, order_qty, &order_count);
+    
+    // Keep asking for order until valid input is received
+    while (takeOrder(order_items, order_qty, &order_count) == ORDER_INVALID) {
+        printf("\nLet's try that again. Please re-enter your order.\n");
+        order_count = 0;  // Reset the order count to start fresh
+    }
+    
     printReceipt(table_number, order_items, order_qty, order_count);
 
     return 0;
